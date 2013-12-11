@@ -72,7 +72,10 @@ shinyServer(function(input, output) {
 	output$structure <- renderPrint({
 		if(is.null(df()))
 			return(NULL)
-			
-		str(df())
+		
+		df <- df()
+		
+		str(df)
+		lapply(df[,-which(names(df)=="value")],unique)
 	})
 })
