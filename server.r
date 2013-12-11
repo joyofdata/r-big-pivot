@@ -21,7 +21,7 @@ shinyServer(function(input, output) {
 		df
 	})
 	
-	d <- reactive({
+	df_agg_wide <- reactive({
 		if(is.null(df())
 			| input$row == ""
 			| input$col == ""
@@ -45,28 +45,52 @@ shinyServer(function(input, output) {
 			drop=FALSE
 		)
 	})
-	
-	d2 <- reactive({
-		if(is.null(d()))
+		
+	df_agg_long <- reactive({
+		if(is.null(df_agg_wide()))
 			return(NULL)
 			
-		melt(d(),id.vars=input$row,variable.name=input$col,value.name="value")
+		melt(df_agg_wide(),id.vars=input$row,variable.name=input$col,value.name="value")
 	})
 	
-	output$plot <- renderPlot({
-		if(is.null(d2()))
+	output$line_plot <- renderPlot({
+		if(is.null(df_agg_long()))
 			return(NULL)
 	
-		df2 <- d2()
+		df2 <- df_agg_long()
 	
 		n <- names(df2)
 		gg <- ggplot(data=df2,aes_string(x=n[1],y=n[3],color=n[2])) + geom_line()
 		
 		print(gg)
+	},height=1000)
+	
+	output$scatter_plot <- renderPlot({
+		if(is.null(df()))
+			return(NULL)
+	
+		df <- df()
+	
+		n <- names(df)
+		gg <- ggplot(data=df,aes_string(x=input$x,y=input$y,color=input$category)) + geom_point()
+		
+		print(gg)
+	})
+	
+	output$boxplot_plot <- renderPlot({
+		if(is.null(df_agg_long()))
+			return(NULL)
+			
+		df <- df()
+	
+		n <- names(df)
+		gg <- ggplot(data=df,aes_string(y=input$boxplot.value,x=input$boxplot.category,fill=input$boxplot.category)) + geom_boxplot()
+		
+		print(gg)
 	})
 	
 	output$table <- renderDataTable({
-		d()
+		df_agg_wide()
 	})
 	
 	output$structure <- renderPrint({
