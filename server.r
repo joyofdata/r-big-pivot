@@ -11,12 +11,23 @@ shinyServer(function(input, output) {
 			return(NULL)
 			
 		cat("reads csv\n")
-		read.csv(inFile$datapath, header=TRUE, sep="\t")
+		df <- read.csv(inFile$datapath, header=TRUE, sep="\t", stringsAsFactors=FALSE)
+		if("time" %in% names(df)) {
+			df$time <- as.Date(df$time, origin="1970-01-01")
+		}
+		if("value" %in% names(df)) {
+			df$value <- as.numeric(df$value)
+		}
+		df
 	})
 	
 	d <- reactive({
-		cat("casts\n")
-	
+		if(is.null(df())
+			| input$row == ""
+			| input$col == ""
+			| input$val == "")
+			return(NULL)
+		
 		formula <- paste(
 			gsub(",","+",input$row),
 			"~",
@@ -24,25 +35,32 @@ shinyServer(function(input, output) {
 			sep=""
 		)
 		
+		cat(formula)
+		
 		dcast(df(),
 			formula,
 			value.var=input$val,
-			fun.aggregate=get(input$fun)
+			fun.aggregate=get(input$fun),
+			na.rm=TRUE,
+			drop=FALSE
 		)
 	})
 	
-	output$plot <- renderPlot({
-		if(nrow(d()) == 0) return
-	
-		df0 <- d()
-		#plot(d[,1],d[,2])
-	
-		n <- names(df0)
-		gg <- ggplot(data=df0)
-		for(j in 2:ncol(df0)){
+	d2 <- reactive({
+		if(is.null(d()))
+			return(NULL)
 			
-			gg <- gg + geom_line(aes_string(x=n[1],y=n[j]))
-		}
+		melt(d(),id.vars=input$row,variable.name=input$col,value.name="value")
+	})
+	
+	output$plot <- renderPlot({
+		if(is.null(d2()))
+			return(NULL)
+	
+		df2 <- d2()
+	
+		n <- names(df2)
+		gg <- ggplot(data=df2,aes_string(x=n[1],y=n[3],color=n[2])) + geom_line()
 		
 		print(gg)
 	})
@@ -52,7 +70,9 @@ shinyServer(function(input, output) {
 	})
 	
 	output$structure <- renderPrint({
-		cat("prints structure\n")
+		if(is.null(df()))
+			return(NULL)
+			
 		str(df())
 	})
 })
