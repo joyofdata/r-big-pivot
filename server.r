@@ -2,6 +2,8 @@ library(shiny)
 library(reshape2)
 library(ggplot2)
 
+options(shiny.maxRequestSize=1024^4)
+
 shinyServer(function(input, output) {
 	df <- reactive({
 		inFile <- input$file1
