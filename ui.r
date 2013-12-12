@@ -1,6 +1,6 @@
 library(shiny)
 
-narrowSidebar <- HTML('<style>.span4 {min-width: 280px; max-width: 280px; }</style>')
+narrowSidebar <- HTML('<style>.span4 {min-width: 280px; max-width: 280px; } textarea {font-family: Courier; font-size: 8pt}</style>')
 widerMainPanel <- HTML('<style>.span8 {min-width: 1200px; max-width: 1200px; } .shiny-plot-output {min-height:800px; max-height:800px}</style>')
 
 shinyUI(pageWithSidebar(
@@ -9,24 +9,12 @@ shinyUI(pageWithSidebar(
 	tags$head(narrowSidebar),
 		fileInput("file1", "TSV:"),
 		tabsetPanel(
-			tabPanel("lineplot",
-				h4("line plot:"),
-				textInput("row", "Row (X)", "time"),
-				textInput("col", "Column (Category)", "tra_meas"),
-				textInput("val", "Value (Y)", "value"),
-				selectInput("fun", "Aggregation", list("mean"="mean","sum"="sum","count"="length")),
-				HTML("<textarea name='filter.line.plot' rows=10 cols=10></textarea>")
+			tabPanel("plot",
+				HTML("<textarea name='plot' rows=10 cols=10></textarea>")
 			),
-			tabPanel("scatterplot",
-				h4("scatter plot:"),
-				textInput("x","X"),
-				textInput("y","Y"),
-				textInput("category","Category")
-			),
-			tabPanel("boxplot",
-				h4("box plot"),
-				textInput("boxplot.category","Category"),
-				textInput("boxplot.value","Value")
+			tabPanel("table",
+				HTML("t1: <textarea name='table_t1' rows=5 cols=10>sql('select T, tra_meas, sum(V) from o group by T, tra_meas')</textarea>"),
+				HTML("t2: <textarea name='table_t2' rows=5 cols=10></textarea>")
 			)
 		),
 		submitButton("do it!")
@@ -34,10 +22,10 @@ shinyUI(pageWithSidebar(
 	mainPanel(
 	tags$head(widerMainPanel),
 		tabsetPanel(
-			tabPanel("line plot", plotOutput("line_plot")),
-			tabPanel("scatter plot", plotOutput("scatter_plot")),
-			tabPanel("boxplot plot", plotOutput("boxplot_plot")),
-			tabPanel("table", dataTableOutput("table")),
+			tabPanel("plot", plotOutput("plot")),
+			tabPanel("table (o)", dataTableOutput("table_original")),
+			tabPanel("table (t1)", dataTableOutput("table_t1")),
+			tabPanel("table (t2)", dataTableOutput("table_t2")),
 			tabPanel("structure", verbatimTextOutput("structure"))
 		)
 	)
