@@ -1,0 +1,1 @@
+sql(select rep_airp, sum(V) as  n from o where tra_meas="PASS_BRD" and unit = "PASS" and partner = "DE" and rep_airp like "DE_%" and freq = "M" and T = "2012-12-01" group by rep_airp order by n desc);
