@@ -67,8 +67,8 @@ shinyServer(function(input, output) {
 			cmd <- str_replace(cmd,"\\)$","')")
 		} else if(str_sub(cmd,1,4) == "wide"
 			|| str_sub(cmd,1,4) == "line"
-			|| str_sub(cmd,1,4) == "point"
-			|| str_sub(cmd,1,4) == "box"
+			|| str_sub(cmd,1,5) == "point"
+			|| str_sub(cmd,1,3) == "box"
 			) {
 			cmd <- str_replace(cmd,"\\(","('")
 			cmd <- str_replace(cmd,"\\)","')")
