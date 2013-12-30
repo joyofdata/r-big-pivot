@@ -14,15 +14,20 @@ shinyServer(function(input, output) {
 	t3 <- NULL
 	
 	wide <- function(row,col,val,table,fun) {
-		r
 	
 		if(is.null(get(table)))
 				return(NULL)
 			
+		row <- str_replace_all(row,"\\[","")
+		col <- str_replace_all(col,"\\[","")
+		
+		row <- str_replace_all(row,"\\]","")
+		col <- str_replace_all(col,"\\]","")
+		
 		formula <- paste(
-			gsub(",","+",row),
+			gsub(" ","+",row),
 			"~",
-			gsub(",","+",col),
+			gsub(" ","+",col),
 			sep=""
 		)
 		
