@@ -22,7 +22,7 @@ shinyUI(pageWithSidebar(
 			tabPanel("table",
 				HTML("t1: <textarea name='table_t1' rows=5 cols=10></textarea>"),
 				HTML("t2: <textarea name='table_t2' rows=5 cols=10></textarea>"),
-				HTML("t3: <textarea name='table_t2' rows=5 cols=10></textarea>")
+				HTML("t3: <textarea name='table_t3' rows=5 cols=10></textarea>")
 			)
 		)
 	),
