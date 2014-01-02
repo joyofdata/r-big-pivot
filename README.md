@@ -5,7 +5,7 @@ Pivoting and charting big tabular data sets in a web UI based on R and Shiny.
 
 Given that this works but lacks ease of use and necessary features, I consider this project so far rather a proof of concept to show that an interactive data explorer can be comparatively easily realized with R.
 
-Further details on the project you can [find on my web-site](http://www.joyofdata.de/blog/pivoting-data-r-excel-style/).
+Further details on the project you may [find on my web-site](http://www.joyofdata.de/blog/pivoting-data-r-excel-style/).
 
 
 ##set up data to play with
