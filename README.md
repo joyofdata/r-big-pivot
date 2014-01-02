@@ -74,3 +74,6 @@ line(t2,T,V,x);
 
 (Shiny checks if the content of a text box changed in short intervals. Only if command is ended with a semicolon, the command is parsed and executed.)
 
+![the chart we just plotted](https://raw.github.com/joyofdata/r-big-pivot/master/pics/sample-chart.gif)
+
+(In case you are curious about the sudden rise of death due to viral hepatitis, have a look [here}(http://www.joyofdata.de/blog/increase-of-deaths-due-to-viral-hepatitis-in-the-year-1998-in-germany/))
