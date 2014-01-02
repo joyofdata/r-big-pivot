@@ -76,4 +76,4 @@ line(t2,T,V,x);
 
 ![the chart we just plotted](https://raw.github.com/joyofdata/r-big-pivot/master/pics/sample-chart.gif)
 
-(In case you are curious about the sudden rise of death due to viral hepatitis, have a look [here}(http://www.joyofdata.de/blog/increase-of-deaths-due-to-viral-hepatitis-in-the-year-1998-in-germany/))
+(In case you are curious about the sudden rise of death due to viral hepatitis, have a look [here](http://www.joyofdata.de/blog/increase-of-deaths-due-to-viral-hepatitis-in-the-year-1998-in-germany/))
