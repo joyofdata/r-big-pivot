@@ -53,7 +53,7 @@ shinyServer(function(input, output) {
 	}
 	
 	line <- function(table,X,Y,col=NULL) {
-		ggplot(data=get(table),aes_string(x=X,y=Y,color=col)) + geom_line()
+		ggplot(data=get(table),aes_string(x=X,y=Y,color=col)) + geom_line(size=1)
 	}
 	
 	point <- function(table,x,y,col=NULL) {
@@ -145,7 +145,7 @@ shinyServer(function(input, output) {
 		gg <- eval(parse(text=cmd))
 		
 		print(gg)
-	}, height=1000)
+	}, height=600)
 	
 	output$table_original <- renderDataTable({
 		fo()
