@@ -1,7 +1,7 @@
 r-big-pivot
 ===========
 
-Pivoting and charting big tabular data sets in a browser UI based on R and Shiny.
+Pivoting and charting big tabular data sets in a web UI based on R and Shiny.
 
 Given that this works but lacks ease of use and necessary features, I consider this project so far rather a proof of concept to show that an interactive data explorer can be comparatively easily realized with R.
 
@@ -36,6 +36,7 @@ The resulting TSV should look like this:
 ```
 
 ##launch r-big-pivot:
+Place server.r and ui.r in a folder named "r-big-pivot".
 
 ```
 library(shiny)
